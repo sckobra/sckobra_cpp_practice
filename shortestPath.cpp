@@ -4,40 +4,46 @@ using namespace std;
 #include <list>
 #include <queue>
 
-
+#include <climits>
 
 int shortestPath(int u, int v, vector<list<int>>& adjList){
+    //if (u == v) return 0;
 
     queue<int> myQ;
+    int n = adjList.size();
     //vector<bool> visited(adjList.size(), false);
-    int pathLength = 0;
     //visited[0] = true;
+    vector<int> distance(n, INT_MAX);
+    for (auto e : distance){
+        cout << e <<endl;
+    }
+    cout <<endl;
+    distance[u] = 0;
     myQ.push(u);
+    int pathCount = 0;
 
     while (!myQ.empty()){
         int front = myQ.front();
-        myQ.pop();
-        cout << "popped from q"<<endl;
-        pathLength++;
-        for (int i : adjList[front]){
-            if(i == v){
-                cout << "returned path length: " << pathLength<<endl;
-                return pathLength;
-            } else {
-                cout << "incremented path length: " << pathLength<<endl;
-                myQ.push(i);
-                cout << i << " pushed to q"<<endl;
+        cout << "front: "<< front<< endl;
+        myQ.pop();        
+        for (int e : adjList[front]){
+            if (distance[e] == INT_MAX){
+                cout << "distance front: "<< distance[front]<<endl;
+                distance[e] = distance[front] + 1;
+                cout << "distance of neighbor: " << distance[e]<<endl;
+                if(e == v){
+                    return distance[e];
+                }
+                myQ.push(e);
             }
-
-        }
+        } 
     }
-    return pathLength;
+    return -1;
 }
 int main(){
-    vector<list<int>> adjList = {{1, 2, 3}, {3}, {3, 5}, {4}, {5}};
-    int shortestPath1 = shortestPath(0, 3, adjList);
-    cout << "shortest path 1: " << shortestPath1<<endl;
-    int shortestPath2= shortestPath(0, 5, adjList);
-    cout << "shortest path 2: " << shortestPath2<<endl;
+    vector<list<int>> adjList = {{2,3}, {0}, {1}, {4}, {0}};
+    int result = shortestPath(0, 0, adjList);
+    cout <<result<<endl;
+
     return 0;
 }

@@ -8,19 +8,15 @@ stack<int> sortUsingStack(stack<int>& s){
     int totalSize = 1;
     bool firstIteration = true;
     int sizeNewStack = 0;
-    //int max = s.top();
-    //s.pop();
     int max;
     while (sizeNewStack != totalSize) {
         if (!s.empty()) {max = s.top();}
         s.pop();
-        cout << "max at begining of loop: "<<max<<endl;
         while (!s.empty()){
             if(firstIteration) totalSize ++;    
             if (s.top() > max){
                 newStack.push(max);
                 max = s.top();
-                cout << "new max: "<<max<<endl;
                 s.pop();
             } else {
                 newStack.push(s.top());
@@ -29,7 +25,6 @@ stack<int> sortUsingStack(stack<int>& s){
         }
         firstIteration = false;
         int numberTimesAddBack = (totalSize - 1) - sizeNewStack;
-        cout << "number times to add back: " << numberTimesAddBack <<endl;
         for (int i = 0; i < numberTimesAddBack; i++) {
             s.push(newStack.top());
             newStack.pop();
@@ -37,8 +32,6 @@ stack<int> sortUsingStack(stack<int>& s){
         newStack.push(max);
         sizeNewStack++;
     }
-    cout <<"size new stack: " << sizeNewStack <<endl;
-    cout <<"total size of stack: " << totalSize <<endl;
     return newStack;
 }
 
