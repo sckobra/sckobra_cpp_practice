@@ -57,7 +57,7 @@ bool treasureFound(vector<vector<char>> map, pair<int, int> start)
         }
         
         for (char& c : neib){
-            cout << c << " ";
+            if (c == 'X'){return true;}
         }
     }
 
