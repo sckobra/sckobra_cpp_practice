@@ -6,21 +6,40 @@ struct ListNode {
     int value;           
     ListNode* next; 
     ListNode(int val) : value(val), next(nullptr) {}     
-
 };
 
 ListNode* removeNthFromEnd(ListNode* head, int n){
+    if (!head) return head;
     ListNode* p = head;
-    vector<int> intVec;
-    while(p->next != nullptr){
-        //intVec.push_back(p->value);
-        if (p->next != nullptr) {p = p->next;}
+    int size = 0;
+    while(p != nullptr){
+        size++;
+        p = p->next;
     }
-    cout<< "p is now: "<<p->value<<endl;
-    cout <<"amount of elements: " << intVec.size()<<endl;
+    cout << "size: " <<size<<endl;
 
-    cout<<endl;
-    return p;
+    int indexRemove = size - n;
+    cout << "index remove: "<<indexRemove<<endl;
+    p = head;
+    if (indexRemove == 0){
+        head = head->next;
+        delete p;
+        return head;
+    }
+    ListNode* p2 = head->next;
+    int indexCount = 1;
+    while(p2 != nullptr){
+        cout << "entered"<<endl;
+        if(indexCount == indexRemove){
+            p->next = p2->next;
+            delete p2;
+            return head;
+        }
+        p = p->next;
+        p2 = p2->next;
+        indexCount++;
+    }
+    return head;
 
 }
 
@@ -42,5 +61,6 @@ int main(){
 
     printList(head);
     removeNthFromEnd(head, 2);
+    printList(head);
     return 0;
 }
